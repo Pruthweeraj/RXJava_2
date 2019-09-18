@@ -10,7 +10,68 @@ import io.reactivex.observables.ConnectableObservable;
 public class Test {
 
 	public static void main(String[] args) {
-
+		
+//		Observable<String> observable = Observable.just("First", "Second", "third");
+//		Observer<String> observer = new Observer<String>() {
+//
+//			@Override
+//			public void onCompleted() {
+//				// TODO Auto-generated method stub
+//				System.out.println("All Opration are completed");
+//			}
+//
+//			@Override
+//			public void onError(Throwable e) {
+//				// TODO Auto-generated method stub
+//				System.out.println(e);
+//			}
+//
+//			@Override
+//			public void onNext(String element) {
+//				// TODO Auto-generated method stub
+//				System.out.println(element);
+//			}
+//		};
+//	observable.subscribe(observer);
+//	
+//	
+//	Observable<String> observale2 = Observable.create(emitter -> {
+//		try {
+//			emitter.onNext("First-sort");
+//			emitter.onNext("Second-sort");
+//			emitter.onNext("Third-sort");
+//			emitter.onNext("Fourth-sort");
+//			emitter.onCompleted();
+//	
+//		} catch (Exception e) {
+//			emitter.onError(e);
+//		}	});
+//	
+//	observale2.subscribe(observer);
+//	
+//	
+//	Observable<String> observable3 = Observable.just("PR", "PUPA");
+//	observable3.subscribe(System.out::println, Throwable::printStackTrace , ()-> System.out.println("All done :)"));
+//	
+//	//Cold Observable
+//	Observable<String> observable4 = Observable.just("First", "Second" ,"third");
+//	observable4.subscribe(e -> System.out.println("Observer1" +e));
+//	System.out.println("---------------");
+//	observable4.subscribe(e -> System.out.println("Observer2" +e));
+//	
+//	//Iterable
+//	List<String> names= Arrays.asList("Pr" , "Panda" );
+//	Observable<String> observable5 = Observable.from(names);
+//	observable5.subscribe(System.out::println);
+//	}
+		
+		
+		
+		
+		
+		
+		
+	//Day-2:
 		Observable<String> observable = Observable.just("Pr", "Pupa");
 		observable.subscribe(str -> System.out.println(str + "-from emmter."));
 
