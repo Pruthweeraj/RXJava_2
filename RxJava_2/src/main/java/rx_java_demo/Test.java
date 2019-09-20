@@ -4,11 +4,19 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
+import org.apache.commons.math3.genetics.OnePointCrossover;
+
+import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
+import io.reactivex.SingleObserver;
+import io.reactivex.disposables.Disposable;
 import io.reactivex.observables.ConnectableObservable;
 
 public class Test {
 
+	static int a = 0;
+	static int b = 10;
 	public static void main(String[] args) {
 		
 //		Observable<String> observable = Observable.just("First", "Second", "third");
@@ -141,43 +149,132 @@ public class Test {
 //		
 //		
 
-		
-		//Error factory
-		Observable.error(new Exception("I want a Exception") ).subscribe(System.out::println ,Throwable::printStackTrace ,()->System.out.println("Emition Completrd"));
-		
-		
-		Observable.error(new Exception("I want one more Exception") ).subscribe(System.out::println ,e -> {
-			System.out.println("Thread.currentThread().getName() ::"+Thread.currentThread().getName());
-			System.out.println("Thread.currentThread().getPriority()) ::"+Thread.currentThread().getPriority());
-			System.out.println("Thread.currentThread().getThreadGroup() ::"+Thread.currentThread().getThreadGroup());
-			System.out.println("Thread.currentThread().getStackTrace() ::"+Thread.currentThread().getStackTrace());
-			System.out.println("e.printStackTrace()::");e.printStackTrace();
-			} ,()->System.out.println("Emition Completrd"));
-		
-		
-		
-		
+//		
+//		//Error factory
+//		Observable.error(new Exception("I want a Exception") ).subscribe(System.out::println ,Throwable::printStackTrace ,()->System.out.println("Emition Completrd"));
+//		
+//		
+//		Observable.error(new Exception("I want one more Exception") ).subscribe(System.out::println ,e -> {
+//			System.out.println("Thread.currentThread().getName() ::"+Thread.currentThread().getName());
+//			System.out.println("Thread.currentThread().getPriority()) ::"+Thread.currentThread().getPriority());
+//			System.out.println("Thread.currentThread().getThreadGroup() ::"+Thread.currentThread().getThreadGroup());
+//			System.out.println("Thread.currentThread().getStackTrace() ::"+Thread.currentThread().getStackTrace());
+//			System.out.println("e.printStackTrace()::");e.printStackTrace();
+//			} ,()->System.out.println("Emition Completrd"));
+//		
+//		
 		
 		
+//		//defer Factory
+//		//defer factory will not create the Observable when it declared, It create a NEW observable ONLY when a Observer will subscribe that Observable the Observable when it is 
+//        Observable<Integer> defertObservable = Observable.defer(() ->Observable.range(a , b));
+//        defertObservable.subscribe(System.out::println);
+//        System.out.println("--------------");
+//        b = 15;
+//        defertObservable.subscribe(System.out::println);
+//		
+//		
+//		
+		
+		
+		
+//		//single
+//		//Single  will only emites a SINGLE/ONE value through it's lifetime.
+//		Observable.just("One","Two").first("default").subscribe(System.out::println);
+//		
+//		Single.just("x").subscribe((onComplet,onError)->System.out.println(onComplet +"" +onError));
+//		
+//		
+//		//mayBe
+//		//It will accept only ONE value or NOTHING , if it has nothing it will directly call the onComplet() method directly.
+//		
+//		
+//		
+//		//completable
+//		Completable.fromRunnable(()->System.out.println("Called just before the OnComplet called")).subscribe(()->System.out.println("OnCompletAction called."));
+//		
+//		
+//		
+		
+//		Observable<Long> observable = Observable.interval(1, TimeUnit.SECONDS);
+//		Disposable disposable = observable.subscribe(System.out::println);
+//		Sleep(5000);
+//		disposable.dispose();
+//		Sleep(5000);
+//		
+//		
+		
+//		
+//		//RxOperaor
+//		//filter(Predicate)
+//		//filter operator Returns the Observable<T> according to the predicate condition.		
+//		Observable<String> stringObservable = Observable.just("Alpha", "Beta", "Gamma", "Omega");
+//		stringObservable.filter(s -> (s.length()>4)).subscribe(System.out::println);
+	
+		
+//		//take , skip and first Operators
+//		//take(x)
+//		//take will emites only first 'x' numbers of value from n numbers of emitions.
+//		Observable<String> stringObservable = Observable.just("aaa" ,"bbb" ,"ccc" ,"ddd" ,"eee");
+//		stringObservable.take(2).subscribe(System.out::println);
+//		
+//		//skip(x)
+//		//skip will skips the first x numbers of value and emites all rest emitions.
+//		stringObservable.skip(3).subscribe(System.out::println);
+//		
+//		//first("default_value")
+//		//first will emit only the first element from the Observable.
+//		//And if the Observable don't have any element then it will emite the degault_value.
+//		stringObservable.first("foo").subscribe(System.out::println);
+//		
+		
+//		//takeWhile(predicate) and skipWhile(predicate) 
+//		//takeWhile(predicate) will 'TAKE/emits' the value till the predicate returns "true" .
+//		//,But when ever the predicate returns a "false" value ,from that time it will never check the predicate again and will starts 'SKIPING' from THAT element to rest ALL.
+//		Observable<Integer> integerObservable = Observable.just(0,1,2,3,4,0,1,2,3,4);
+//		integerObservable.takeWhile((i)->i<=2).subscribe(System.out::println);
+//		System.out.println("--------------------------");
+//		
+//		//skipWhile(predicate) is the opposite of takeWhile(Predicate)
+//		//skipWhile(predicate) will 'SKIP' the values till the predicate returns "true".
+//		//,But when ever the predicate the predicate returns a "false" value ,from that time it will never checks the predicate again and will start 'TAKING/Emiting' from that value to rest ALL.
+//		Observable<Integer> integerObservable2 = Observable.just(0,1,2,3,4,0,1,2,3,4);
+//		integerObservable2.skipWhile(i -> i<=2).subscribe(System.out::println);
+//		
+		
+		
+//		//distinct()
+//		Observable<String> stringObservable = Observable.just("Alpha", "Beta",  "Gamma", "Omega" ,"Alpha");
+//		stringObservable.distinct().subscribe(System.out::println);// Alpha, Beta, Gamma, Omega.
+//		System.out.println("--------------------------");
+//		
+//		//distinct(function)
+//		stringObservable.distinct(String::length).subscribe(System.out::println); //Alpha, Beta.
+//		System.out.println("--------------------------");
+//		
+//		//elemenAt(index)
+//		stringObservable.elementAt(2).subscribe(System.out::println);//Gamma
+//		System.out.println("--------------------------");
+//		
 		
 		
 		
 		
 		
-		
-		
-		
-		
-		System.out.println("");
-		System.out.println("--------------------");
-		System.out.println("mainthread is sleeping");
-		try {
-			Thread.sleep(5000);
-		}catch(InterruptedException e){
-			//System.out.println(e);
-		}
 		
 		
 		
 	}
+	
+	
+	public static void Sleep(int time) {
+		System.out.println("");
+		System.out.println("--------------------");
+		System.out.println("mainthread is sleeping for " + time);
+		try {
+			Thread.sleep(time);
+		}catch(InterruptedException e){
+			//System.out.println(e);
+		}
+		}
 }
